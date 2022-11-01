@@ -5,5 +5,6 @@ mod actor;
 use actor::WebSocketActor;
 
 pub async fn handler(req: HttpRequest, stream: web::Payload) -> Result<HttpResponse, Error> {
-    ws::start(WebSocketActor::new(), &req, stream)
+    let tty = req.app_data::<web::Data<String>>().unwrap();
+    ws::start(WebSocketActor::new(tty), &req, stream)
 }

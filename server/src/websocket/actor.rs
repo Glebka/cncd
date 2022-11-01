@@ -18,9 +18,9 @@ pub struct WebSocketActor {
 }
 
 impl WebSocketActor {
-    pub fn new() -> Self {
+    pub fn new(tty: &String) -> Self {
         let (sender, response_receiver) = channel::<String>(42);
-        let serial_comm = comm_async::SerialComm::new("COM11", 115200, sender);
+        let serial_comm = comm_async::SerialComm::new(tty, 115200, sender);
         Self {
             last_heartbeat: Instant::now(),
             serial_comm,
