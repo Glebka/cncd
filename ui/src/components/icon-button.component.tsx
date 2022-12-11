@@ -25,7 +25,7 @@ export const IconButton = (props: IconButtonProps) => {
     <>
       <OverlayTrigger
         placement="bottom"
-        overlay={renderTooltip(props.disabled, props.tooltip)}
+        overlay={renderTooltip(props.disabled!!, props.tooltip)}
       >
         <StyledButton variant="outline-primary" size="lg" {...props}>
           {props.icon}

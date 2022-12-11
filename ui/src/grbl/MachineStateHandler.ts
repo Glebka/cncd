@@ -7,7 +7,7 @@ const STATUS_QUERY_INTERVAL_MS = 500;
 
 export class MachineStateHandler extends BaseGrblHandler {
   private _dispatch: AppDispatch;
-  private _statusReqTimerHandle: number = NaN;
+  private _statusReqTimerHandle!: NodeJS.Timer;
 
   constructor(dispatch: AppDispatch) {
     super();

@@ -5,7 +5,7 @@ const path = require("path");
 export default defineConfig({
   root: "src/",
   build: {
-    outDir: "../dist",
+    outDir: path.resolve(__dirname, "./../app/dist/renderer"),
   },
   resolve: {
     alias: {

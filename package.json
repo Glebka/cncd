@@ -7,7 +7,7 @@
     "clean": "rm -rf ui/dist/ && rm -rf node_modules/.vite && rm -rf server/target",
     "start:web": "cd ui/ && vite -m development",
     "start:be": "cd server/ && cargo run",
-    "build:web": "cd ui/ && tsc -p ./ui/src/tsconfig.json && vite build",
+    "build:web": "cd ui/ && tsc -p ./src/tsconfig.json && vite build",
     "build:be": "cd server/ && cargo build",
     "build:web:dev": "cd ui/ && tsc -p ./src/ui/tsconfig.json && vite build -m development",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,6 +16,7 @@
   "license": "MIT",
   "devDependencies": {
     "@reduxjs/toolkit": "^1.8.0",
+    "@types/node": "^18.11.13",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
     "@types/styled-components": "^5.1.26",
