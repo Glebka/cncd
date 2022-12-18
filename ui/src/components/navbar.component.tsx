@@ -1,20 +1,29 @@
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
+import styled from "styled-components";
+
+import { WindowControlBar } from "./window-controls.component";
+
+const StyledContainer = styled(Container)`
+  display: flex;
+  justify-content: space-between;
+`;
 
 export const AppNavbar = () => {
   return (
-    <Navbar variant="light" bg="light">
-      <Container fluid>
-        <Navbar.Brand>
+    <Navbar variant="light" bg="light" expanded>
+      <StyledContainer fluid>
+        <Container fluid>
           <img
-            src="assets/cnc.png"
+            src="cnc.png"
             className="d-inline-block align-top"
-            width={48}
-            height={48}
+            width={24}
+            height={24}
           ></img>{" "}
           CNC Controller
-        </Navbar.Brand>
-      </Container>
+        </Container>
+        <WindowControlBar />
+      </StyledContainer>
     </Navbar>
   );
 };

@@ -4,9 +4,11 @@ const path = require("path");
 
 export default defineConfig({
   root: "src/",
+  base: "./",
   build: {
     outDir: path.resolve(__dirname, "./../app/dist/renderer"),
   },
+  publicDir: path.resolve(__dirname, "./public"),
   resolve: {
     alias: {
       "@app": path.resolve(__dirname, "./src"),
