@@ -1,6 +1,8 @@
 use actix_web::{middleware, web, App, HttpServer};
 use libmdns::Responder;
 use tokio::runtime::Handle;
+use std::process;
+
 
 mod comm_async;
 mod websocket;
@@ -18,11 +20,12 @@ async fn main() -> std::io::Result<()> {
     log::info!("starting HTTP server at 0.0.0.0:{}", port);
     let handle = Handle::current();
     let responder = Responder::spawn(&handle)?;
+    let service_name = format!("CNCD {}", process::id());
     let _cncd_service = responder.register(
         "_http._tcp".into(),
-        "CNC Daemon Server".into(),
+        service_name,
         port,
-        &["path=/"],
+        &["path=/", "type=cnc", "name=Punky"],
     );
     HttpServer::new(move || {
         // keep scope

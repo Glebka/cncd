@@ -2,8 +2,6 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import styled from "styled-components";
 
-import { WindowControlBar } from "./window-controls.component";
-
 const StyledContainer = styled(Container)`
   display: flex;
   justify-content: space-between;
@@ -22,7 +20,6 @@ export const AppNavbar = () => {
           ></img>{" "}
           CNC Controller
         </Container>
-        <WindowControlBar />
       </StyledContainer>
     </Navbar>
   );

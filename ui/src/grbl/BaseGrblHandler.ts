@@ -1,5 +1,7 @@
+import { injectable } from "inversify";
 import { IController, IGrblHandler } from "./types";
 
+@injectable()
 export class BaseGrblHandler implements IGrblHandler {
   onConnected(_: IController) {}
   onConnectionError(_: IController) {}

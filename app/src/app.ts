@@ -1,6 +1,7 @@
 import { app } from "electron";
 import "./security";
 import { restoreOrCreateWindow } from "./mainWindow";
+import { initMain } from "./main";
 
 /**
  * Prevent electron from running multiple instances.
@@ -11,8 +12,6 @@ if (!isSingleInstance) {
   process.exit(0);
 }
 app.on("second-instance", restoreOrCreateWindow);
-
-console.log("Hello from main");
 
 /**
  * Disable Hardware Acceleration to save more system resources.
@@ -39,4 +38,5 @@ app.on("activate", restoreOrCreateWindow);
 app
   .whenReady()
   .then(restoreOrCreateWindow)
+  .then(initMain)
   .catch((e) => console.error("Failed create window:", e));

@@ -1,17 +1,21 @@
-import { AppDispatch, MachineStateActions } from "../store";
+import { injectable, inject } from "inversify";
+import "reflect-metadata";
+import { MachineStateActions } from "@app/store";
+import type { AppDispatch } from "@app/store";
 import { BaseGrblHandler } from "./BaseGrblHandler";
 import { IController } from "./types";
+import { TYPES } from "@app/inversify.types";
 const { setStatus, processStatusReport } = MachineStateActions;
 
 const STATUS_QUERY_INTERVAL_MS = 500;
 
+@injectable()
 export class MachineStateHandler extends BaseGrblHandler {
-  private _dispatch: AppDispatch;
-  private _statusReqTimerHandle!: NodeJS.Timer;
+  @inject(TYPES.AppDispatch) private _dispatch!: AppDispatch;
+  private _statusReqTimerHandle!: number;
 
-  constructor(dispatch: AppDispatch) {
+  constructor() {
     super();
-    this._dispatch = dispatch;
   }
 
   onConnected(c: IController): void {

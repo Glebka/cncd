@@ -1,6 +1,7 @@
 export const JOB_STATE_SLICE = "jobState";
 export const MACHINE_STATE_SLICE = "machineState";
-export const WINDOW_STATE_SLICE = "windowState";
+export const SERVICE_DISCOVERY_SLICE = "serviceDiscovery";
+
 export type JobStatus =
   | "Not started"
   | "In progress"

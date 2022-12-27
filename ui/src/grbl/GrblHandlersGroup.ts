@@ -1,5 +1,8 @@
+import { injectable } from "inversify";
+import "reflect-metadata";
 import { IController, IGrblHandler } from "./types";
 
+@injectable()
 export class GrblHandlersGroup implements IGrblHandler {
   private _handlers: IGrblHandler[];
   constructor() {

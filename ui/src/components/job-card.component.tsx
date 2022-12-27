@@ -12,6 +12,9 @@ import { GCodeFileWriter } from "@app/grbl";
 import { useCallback, useContext, useEffect } from "react";
 import { ControllerContext, JobHandlerContext } from "@app/context";
 import { MessageBox } from "./message-box.component";
+import { appContainer } from "@app/inversify.config";
+import { TYPES } from "@app/inversify.types";
+
 const { selectJobState, selectJobProgress, selectLines, canStartJob } =
   JobStateSelectors;
 
@@ -118,7 +121,9 @@ export const JobCardWidget = () => {
               disabled={!buttonsEnabled}
               onClick={async () => {
                 await controller?.sendZeroCoordinates();
-                const writer = new GCodeFileWriter(dispatch, controller!);
+                const writer = appContainer.get<GCodeFileWriter>(
+                  TYPES.GCodeFileWriter
+                );
                 handler?.setWriter(writer);
                 writer.startWriting(lines);
               }}

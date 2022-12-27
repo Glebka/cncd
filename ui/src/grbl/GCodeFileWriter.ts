@@ -1,16 +1,19 @@
-import { AppDispatch, JobActions } from "@app/store";
-import { IController, IGCodeWriter, InterruptReason } from "./types";
+import type { AppDispatch } from "@app/store";
+import type { IController, IGCodeWriter } from "./types";
+
+import { injectable, inject } from "inversify";
+import "reflect-metadata";
+import { JobActions } from "@app/store";
+import { InterruptReason } from "./types";
+import { TYPES } from "@app/inversify.types";
+
 const { incLinesProcessed, incErrorsCount, setStatus } = JobActions;
 
+@injectable()
 export class GCodeFileWriter implements IGCodeWriter {
-  private _dispatch: AppDispatch;
-  private _grbl: IController;
+  @inject(TYPES.AppDispatch) private _dispatch!: AppDispatch;
+  @inject(TYPES.GrblController) private _grbl!: IController;
   private _lines!: string[];
-
-  constructor(dispatch: AppDispatch, grbl: IController) {
-    this._dispatch = dispatch;
-    this._grbl = grbl;
-  }
 
   startWriting(lines: string[]) {
     this._lines = [...lines];

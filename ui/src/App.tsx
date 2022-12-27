@@ -8,11 +8,12 @@ import { AppNavbar } from "./components/navbar.component";
 import { MachineStateWidget } from "./components/machine-state.component";
 import { JobCardWidget } from "./components/job-card.component";
 import { ControlsWidget } from "./components/controls.component";
+import { ConnectivityWidget } from "./components/connectivity.component";
 
 export const App = () => {
   return (
     <>
-      <AppNavbar />
+      {!window.electron && <AppNavbar />}
       <Container className="main">
         <Row>
           <Col>
@@ -20,6 +21,11 @@ export const App = () => {
           </Col>
           <Col lg={5}>
             <Container>
+              <Row>
+                <Col>
+                  <ConnectivityWidget />
+                </Col>
+              </Row>
               <Row>
                 <Col>
                   <MachineStateWidget />

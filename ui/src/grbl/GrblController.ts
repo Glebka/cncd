@@ -1,3 +1,5 @@
+import { injectable } from "inversify";
+import "reflect-metadata";
 import { IController, IGrblHandler } from "./types";
 import { BaseGrblHandler } from "./BaseGrblHandler";
 
@@ -37,6 +39,7 @@ class WaitHandle {
   }
 }
 
+@injectable()
 export class GrblController implements IController {
   private _socket!: WebSocket;
   private _isConnected: boolean;
@@ -51,11 +54,9 @@ export class GrblController implements IController {
     this._waitHandle = null;
   }
 
-  async connect(): Promise<void> {
+  async connect(host: string, port: number): Promise<void> {
     return new Promise((resolve, reject) => {
-      const proto = location.protocol.startsWith("https") ? "wss" : "ws";
-      const devUri = "ws://localhost:8080"; //import.meta.env.API_SERVER;
-      const wsUri = devUri ? `${devUri}/ws` : `${proto}://${location.host}/ws`;
+      const wsUri = `ws://${host}:${port}/ws`;
       const socket = new WebSocket(wsUri);
 
       this._socket = socket;

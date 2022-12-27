@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { BrowserWindow } from "electron";
 import type { BrowserWindowConstructorOptions } from "electron";
 import { URL } from "url";
 import windowStateKeeper from "electron-window-state";
@@ -6,20 +6,21 @@ import windowStateKeeper from "electron-window-state";
 async function createWindow() {
   const windowOptions: BrowserWindowConstructorOptions = {
     minWidth: 1024,
-    minHeight: 768,
-    titleBarStyle: "hidden",
+    minHeight: 600,
     autoHideMenuBar: true,
     trafficLightPosition: {
       x: 20,
       y: 32,
     },
     webPreferences: {
-      contextIsolation: true,
-      devTools: false,
+      contextIsolation: false,
+      devTools: true,
       spellcheck: false,
       nodeIntegration: false,
       webviewTag: false,
-      sandbox: true,
+      sandbox: false,
+      preload: __dirname + "/preload.js",
+      backgroundThrottling: false,
     },
     show: false,
   };
@@ -46,6 +47,7 @@ async function createWindow() {
    * @see https://github.com/electron/electron/issues/25012 for the afford mentioned issue.
    */
   browserWindow.on("ready-to-show", () => {
+    browserWindow?.webContents.openDevTools();
     browserWindow?.show();
   });
 
@@ -54,10 +56,9 @@ async function createWindow() {
    * Vite dev server for development.
    * `file://../renderer/index.html` for production and test.
    */
-  const pageUrl = new URL(
-    "dist/renderer/index.html",
-    "file://" + __dirname
-  ).toString();
+  const pageUrl = process.env.REACT_APP_STATIC_SERVER_PORT
+    ? `http://localhost:${process.env.REACT_APP_STATIC_SERVER_PORT}`
+    : new URL("dist/renderer/index.html", "file://" + __dirname).toString();
 
   await browserWindow.loadURL(pageUrl);
 
@@ -79,4 +80,5 @@ export async function restoreOrCreateWindow() {
   }
 
   window.focus();
+  return window;
 }

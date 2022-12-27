@@ -1,14 +1,18 @@
-import { AppDispatch, JobActions } from "@app/store";
+import { injectable, inject } from "inversify";
+import "reflect-metadata";
+import { JobActions } from "@app/store";
+import type { AppDispatch } from "@app/store";
 import { BaseGrblHandler } from "./BaseGrblHandler";
 import { IController, IGCodeWriter, InterruptReason } from "./types";
+import { TYPES } from "@app/inversify.types";
 
+@injectable()
 export class JobStateHandler extends BaseGrblHandler {
   private _writer: IGCodeWriter | undefined;
-  private _dispatch: AppDispatch;
+  @inject(TYPES.AppDispatch) private _dispatch!: AppDispatch;
 
-  constructor(dispatch: AppDispatch) {
+  constructor() {
     super();
-    this._dispatch = dispatch;
   }
 
   setWriter(writer: IGCodeWriter | undefined) {

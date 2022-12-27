@@ -28,6 +28,8 @@
 *.md    text eol=lf
 *.svg   text eol=lf
 *.yml   text eol=lf
+*.ts    text eol=lf
+*.tsx    text eol=lf
 
 # Enforce Windows newlines
 *.bat   text eol=crlf

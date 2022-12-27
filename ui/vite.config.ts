@@ -16,4 +16,8 @@ export default defineConfig({
   },
   envPrefix: ["REACT_APP_"],
   plugins: [react()],
+  server: {
+    port: parseInt(process.env.REACT_APP_STATIC_SERVER_PORT || "5173"),
+    strictPort: true,
+  },
 });
